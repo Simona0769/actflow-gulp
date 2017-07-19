@@ -12,10 +12,9 @@ actinit -n (活动名字) -m (single/multi)
 
 ＃启动服务
 
-打开Gruntfile.js文件，找到config配置，把actName改成要部署的活动名，然后  
+打开gulpfile.babel.js文件，找到config配置，把actName改成要部署的活动名，然后在命令行输入npm run gulp serve
 
 #发布
+npm run gulp build
 
-
-＃部署发布后的工程
 
