@@ -19,7 +19,9 @@ npm run build
 # 合并雪碧图
 
 在gulpfile.babel.js文件，
+
 ![合成雪碧图task](https://git.oschina.net/uploads/images/2017/0720/171427_323db51b_57092.png "屏幕截图.png")
+
 修改路径，改成要合成雪碧图的文件
 然后在命令行输入 npm run gulp sprite
 task执行后，会在images下生成对应的雪碧图，以及在sass下生成对应的scss文件
