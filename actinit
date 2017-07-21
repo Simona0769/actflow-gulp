@@ -162,7 +162,7 @@ function actInit() {
 	    if(e) throw e;
 	    var _content = '@charset "UTF-8";\n'+
 			'@import "variables";\n'+
-			'@import "sprite";\n'+
+			'@import "icons";\n'+
 			'@import "../../../sass/reset";\n'+
 			'@import "../../../sass/func";\n'+
 			'html,\n'+
@@ -255,8 +255,8 @@ function actInit() {
 	    })
 	});
 
-	//./sass/_sprite.scss
-	fs.open('activity/' + act_name+"/sass/_sprite.scss","w",0644,function(e,fd){
+	//./sass/_icons.scss
+	fs.open('activity/' + act_name+"/sass/_icons.scss","w",0644,function(e,fd){
 	    if(e) throw e;
 	    var _content = '@charset "UTF-8";\n'+
 			'@import "../../../sass/func";';

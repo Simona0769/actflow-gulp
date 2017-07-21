@@ -6,11 +6,20 @@ import browserSync from 'browser-sync'
 // import babel from 'gulp-babel'
 import del from 'del'
 import sourcemaps from 'gulp-sourcemaps'
-import usemin from 'gulp-usemin'
+// import usemin from 'gulp-usemin'
+import useref from 'gulp-useref'
+import gulpif from 'gulp-if'
+import revReplace from 'gulp-rev-replace'
 import uglify from 'gulp-uglify'
 import rev from 'gulp-rev'
 
 import zip from 'gulp-zip'
+
+import merge from 'merge-stream'
+import buffer from 'vinyl-buffer'
+import imagemin from 'gulp-imagemin'
+// 雪碧图依赖
+import spritesmith from 'gulp.spritesmith'
 
 let reload = browserSync.reload
 
@@ -35,6 +44,27 @@ const paths = {
 const clean = () => del([`activity/${config.actName}/${config.dist}/`, `activity/${config.actName}/css/`])
 export { clean }
 
+// 合并雪碧图
+export function sprite () {
+    let spriteData = gulp.src(getPath('images/icons/*.png'))
+    .pipe(spritesmith({
+        imgName: 'sprite.png',
+        cssName: 'sprite.scss',
+        cssTemplate: 'handlebars/sprite-icon.handlebars',
+        padding: 10
+    }))
+
+    let imgStream = spriteData.img
+    .pipe(buffer())
+    .pipe(imagemin())
+    .pipe(gulp.dest(getPath('images')))
+
+    let cssStream = spriteData.css
+    .pipe(gulp.dest(getPath('sass')))
+
+    return merge(imgStream, cssStream)
+}
+
 // 编译sass
 export function style() {
     return gulp.src(paths.styles.src)
@@ -47,12 +77,13 @@ export function style() {
 }
 
 // 修改依赖文件名
-export function useminTask () {
+export function userefTask () {
 	return gulp.src(getPath('html/**/*.html'))
-	.pipe(usemin({
-		css: [cleanCss(), rev()],
-		js: [uglify(), rev()]
-	}))
+	.pipe(useref())
+    .pipe(gulpif('*.js', uglify()))
+    .pipe(gulpif('*.css', cleanCss()))
+    .pipe(gulpif('*.css', rev()))
+    .pipe(revReplace())
 	.pipe(gulp.dest(getPath(`${config.dist}/html`)))
 }
 
@@ -68,6 +99,12 @@ export function copyJs () {
         .pipe(gulp.dest(getPath(`${config.dist}/js`)))
 }
 
+// 压缩图片
+export function compressImg () {
+    return gulp.src(getPath('images/**'))
+        .pipe(imagemin())
+        .pipe(gulp.dest(getPath('dist/images')))
+}
 // 启动本地服务
 const browser = () => {
     browserSync({
@@ -91,6 +128,6 @@ export function compress () {
 
 const serve = gulp.series(clean, style, gulp.parallel(browser, watch))
 
-const build = gulp.series(clean, style, gulp.parallel(useminTask, copyJs))
+const build = gulp.series(clean, style, gulp.parallel(userefTask, copyJs, compressImg), compress)
 
 export { serve, build }
