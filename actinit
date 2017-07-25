@@ -94,7 +94,7 @@ function actInit() {
 		    '	<meta name="viewport" content="initial-scale=1, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no" />\n'+
 		    '	<meta name="format-detection" content="telephone=no">\n'+
 		    '	<title>{{name}}</title>\n'+
-		    '	<!-- build:css(dist) ../css/main.css -->\n'+
+		    '	<!-- build:css ../css/main.css -->\n'+
 		    '	<link rel="stylesheet" href="../css/index.css">\n'+
 		    '	<link rel="stylesheet" href="../css/media.css">\n'+
 		    '	<link rel="stylesheet" href="../css/animation.css">\n'+
@@ -103,8 +103,8 @@ function actInit() {
 			'</head>\n'+
 			'<body>\n'+
 			'</body>\n'+
-			'<!-- build:js({dist}) ../js/lib/fastclick-jquery.js -->\n'+
-			'<script src="../js/fastclick-jquery.js" type="text/javascript" charset="utf-8"></script>\n'+
+			'<!-- build:js ../js/lib/fastclick-jquery.js -->\n'+
+			'<script src="../../../lib/fastclick-jquery.js" type="text/javascript" charset="utf-8"></script>\n'+
 			'<!-- endbuild -->\n'+
 			'<script src="../js/index.js" type="text/javascript" charset="utf-8"></script>\n'+
 			'</html>';
@@ -131,7 +131,7 @@ function actInit() {
 		    '	})(document, window);\n'+
 		    '	</script>\n';
 		    if(mode === 'multi') {
-		    	_adaptjs = '<!-- build:js({dist}) ../js/lib/adapt.js -->\n'+
+		    	_adaptjs = '<!-- build:js ../js/lib/adapt.js -->\n'+
 		    	'<script src="../js/adapt.js" type="text/javascript" charset="utf-8"></script>\n' +
 		    	'<!-- endbuild -->'
 		    }
