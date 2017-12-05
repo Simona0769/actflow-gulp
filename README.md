@@ -4,7 +4,7 @@ $ npm install
 
 # 生成新的活动
 
-./actinit -n (活动名字) -m (single/multi)
+node actinit -n (活动名字) -m (single/multi)
 
 其中：single 表示单页模式/ multi表示多个html
 # 启动服务
